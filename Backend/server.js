@@ -1,16 +1,19 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import connectDB from "./config/db.js";
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const dotenv = require("dotenv");
 
-import studentRoutes from "./routes/studentRoutes.js";
-import teacherRoutes from "./routes/teacherRoutes.js";
+const studentRoutes = require("./routes/studentRoutes");
+const teacherRoutes = require("./routes/teacherRoutes");
 
 dotenv.config();
 const app = express();
-app.use(cors());
-app.use(express.json({ limit: "15mb" })); // allow large base64 frames
 
+app.use(cors());
+app.use(express.json({ limit: "15mb" }));
+
+// DB connection
+const connectDB = require("./config/db");
 connectDB();
 
 app.use("/student", studentRoutes);
